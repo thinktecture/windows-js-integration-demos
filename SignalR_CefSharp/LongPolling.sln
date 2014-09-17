@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LongPolling", "LongPolling\LongPolling.csproj", "{5FC79CFA-9921-43EE-9C35-3D7B50DBA6AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{2C8AC7DF-B399-4EF3-B2E8-80945F6EC38E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bastaWebApi", "bastaWebApi\bastaWebApi.csproj", "{93C12E28-741E-4585-8441-BA717F24F00E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5FC79CFA-9921-43EE-9C35-3D7B50DBA6AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FC79CFA-9921-43EE-9C35-3D7B50DBA6AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FC79CFA-9921-43EE-9C35-3D7B50DBA6AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FC79CFA-9921-43EE-9C35-3D7B50DBA6AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C8AC7DF-B399-4EF3-B2E8-80945F6EC38E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C8AC7DF-B399-4EF3-B2E8-80945F6EC38E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C8AC7DF-B399-4EF3-B2E8-80945F6EC38E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C8AC7DF-B399-4EF3-B2E8-80945F6EC38E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93C12E28-741E-4585-8441-BA717F24F00E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93C12E28-741E-4585-8441-BA717F24F00E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93C12E28-741E-4585-8441-BA717F24F00E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93C12E28-741E-4585-8441-BA717F24F00E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
