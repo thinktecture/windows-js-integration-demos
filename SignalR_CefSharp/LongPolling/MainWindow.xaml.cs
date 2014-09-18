@@ -1,5 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Net.Http;
+using System.Runtime.Remoting.Channels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -76,9 +78,11 @@ namespace LongPolling
             btn_webapi.IsEnabled = false;
         }
 
+        private IDisposable server = null;
+
         void HostingCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var server = WebApp.Start<SelfHostStartup>(selfhostBaseAddress);
+            server = WebApp.Start<SelfHostStartup>(selfhostBaseAddress);
 
             label2.Content = "Selfhosting gestartet";
             btn_selfhost.IsEnabled = false;
@@ -86,28 +90,8 @@ namespace LongPolling
 
         void OpenWebCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", 
-              "http:\\localhost:7777");
-        }
-
-        private void wpf_Click(object sender, RoutedEventArgs e)
-        {
-            DialogListe dl = new DialogListe();
-            dl.ShowDialog();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            // Start OWIN host 
-            WebApp.Start<Startup>(url: webApiBaseAddress);
-
-            label1.Content = "Web API host started";
-        }
-
-        private void browser_Click(object sender, RoutedEventArgs e)
-        {
-            HttpClient client = new HttpClient();
-            var response = client.GetAsync(employeesBaseAddress).Result; 
+            Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+              selfhostBaseAddress);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -128,6 +112,12 @@ namespace LongPolling
             details.EmployeeId = emplyoeeId;
 
             details.ShowDialog();
+
+            if (server != null)
+            {
+                SignalRHub hub = new SignalRHub();
+                hub.Send(emplyoeeId);
+            }
         }
     }
 }
