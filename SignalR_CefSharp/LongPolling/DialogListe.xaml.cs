@@ -21,8 +21,6 @@ namespace LongPolling
     /// </summary>
     public partial class DialogListe : Window
     {
-        private NorthwindEntities _context = new NorthwindEntities();
-
         public DialogListe()
         {
             InitializeComponent();
@@ -30,12 +28,6 @@ namespace LongPolling
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
-            System.Windows.Data.CollectionViewSource employeeViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("employeeViewSource")));
-
-            _context.Employees.Load();
-
-            employeeViewSource.Source = _context.Employees.Local;
 
         }
     }

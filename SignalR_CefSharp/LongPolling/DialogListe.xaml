@@ -3,31 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:DataLayer="clr-namespace:DataLayer;assembly=DataLayer" mc:Ignorable="d" x:Class="LongPolling.DialogListe"
         Title="DialogListe" Height="420" Width="555" Loaded="Window_Loaded">
-    <Window.Resources>
-        <CollectionViewSource x:Key="employeeViewSource" d:DesignSource="{d:DesignInstance {x:Type DataLayer:Employee}, CreateList=True}"/>
-    </Window.Resources>
     <Grid DataContext="{StaticResource employeeViewSource}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="650*"/>
             <ColumnDefinition Width="229*"/>
         </Grid.ColumnDefinitions>
 
-        <DataGrid x:Name="employeeDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="0,0,0,0" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False" Grid.ColumnSpan="2">
-            <DataGrid.Columns>
-                <DataGridTextColumn x:Name="employeeIDColumn" Width="SizeToHeader" Header="Employee ID" Binding="{Binding EmployeeID}"/>
-                <DataGridTextColumn x:Name="firstNameColumn" Width="Auto" Header="First Name" Binding="{Binding FirstName}"/>
-                <DataGridTextColumn x:Name="lastNameColumn" Width="Auto" Header="Last Name" Binding="{Binding LastName}"/>
-                <DataGridTemplateColumn x:Name="birthDateColumn" Width="120" Header="Birth Date">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <DatePicker SelectedDate="{Binding BirthDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTextColumn x:Name="cityColumn" Width="Auto" Header="City" Binding="{Binding City}"/>
-                <DataGridTextColumn x:Name="countryColumn" Width="Auto" Header="Country" Binding="{Binding Country}"/>
-            </DataGrid.Columns>
-        </DataGrid>
 
     </Grid>
 </Window>

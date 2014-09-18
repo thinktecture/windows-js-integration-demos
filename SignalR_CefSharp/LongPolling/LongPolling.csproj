@@ -104,7 +104,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Startup.cs" />
-    <Page Include="Dialog1.xaml">
+    <Page Include="EmployeeDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -120,8 +120,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Dialog1.xaml.cs">
-      <DependentUpon>Dialog1.xaml</DependentUpon>
+    <Compile Include="EmployeeDetails.xaml.cs">
+      <DependentUpon>EmployeeDetails.xaml</DependentUpon>
     </Compile>
     <Compile Include="DialogListe.xaml.cs">
       <DependentUpon>DialogListe.xaml</DependentUpon>

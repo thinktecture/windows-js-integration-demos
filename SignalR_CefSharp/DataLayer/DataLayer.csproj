@@ -51,6 +51,7 @@
     <Compile Include="Employee.cs">
       <DependentUpon>NorthwindModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmployeeDto.cs" />
     <Compile Include="NorthwindModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
