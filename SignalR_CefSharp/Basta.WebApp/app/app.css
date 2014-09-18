@@ -1,0 +1,201 @@
+html [ng-click] {
+    cursor: pointer;
+}
+
+input.ng-pristine, select.ng-pristine {
+    border: 1px solid #d2d3d6;
+}
+
+input.ng-invalid, select.ng-invalid,
+kwp-datetime-picker.ng-invalid .hasDatepicker,
+kwp-datetime-picker.ng-invalid timepicker-pop > input,
+kwp-token-field.ng-invalid .tokenfield {
+    border: solid 1px red;
+}
+
+.hasChild.open > .acc-menu {
+    display: block !important;
+}
+
+.collapse-leftbar .hasChild.open > .acc-menu {
+    visibility: hidden;
+}
+
+dd:empty:after {
+    content: "\00a0";
+}
+
+span[key="contacts"] .spinner {
+    top: 140px !important;
+}
+
+/*
+TODO (th) do we need this?
+a i {
+    color: #4D4D4D;
+}
+*/
+
+div.modal {
+    display: block;
+    overflow: hidden;
+}
+
+.table p {
+    margin-bottom: 0;
+}
+
+td address {
+    margin: 0;
+}
+
+th.right,
+td.right {
+    text-align: right !important;
+}
+
+.modal-dialog.large {
+    width: 800px;
+}
+
+[kwp-connectivity-switch] .online {
+    color: #2d78d5;
+}
+
+[kwp-connectivity-switch] .offline {
+    color: #9f2f24;
+}
+
+[kwp-connectivity-switch] ul div {
+    padding: 15px;
+    width: 100%;
+}
+
+[kwp-connectivity-switch] button {
+    width: 50%;
+}
+
+.navbar-header.pull-left {
+    width: auto;
+}
+
+kwp-form-group {
+    display: block;
+}
+
+kwp-form-group .control-container.row {
+    margin-right: -10px;
+}
+
+kwp-form-group .empty-label {
+    display: none;
+}
+
+@media (min-width: 992px) {
+    kwp-form-group .control-container.row {
+        margin-right: -10px;
+    }
+
+    kwp-form-group .control-container.row,
+    kwp-form-group .control-container.row kwp-form-control:last-child {
+        padding-right: 0;
+    }
+
+    kwp-form-group .empty-label {
+        display: inline;
+    }
+}
+
+timepicker-pop .dropdown-menu {
+    min-width: 0;
+}
+
+.calendar .calendar-buttons {
+    margin-bottom: 15px;
+}
+
+.calendar .calendar-select .form-group {
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+
+.calendar .calendar-buttons .btn {
+    margin-right: 5px;
+}
+
+.calendar .calendar-buttons .btn.last {
+    margin-right: 0px;
+}
+
+.tokenfield .token.user {
+    background-color: #D3D3D3;
+}
+
+.tokenfield .token.engineer {
+    background-color: #F6F6E3;
+}
+
+.tokenfield .token.resource {
+    background-color: #AAC6E4;
+}
+
+.appointment-detail-recipients {
+    word-wrap: break-word;
+}
+
+.informieren button {
+    margin-left: 5px;
+}
+
+.delegieren button {
+    margin-right: 10px;
+}
+
+.button-row > .btn {
+    margin-right: 10px;
+}
+
+kwp-task-detail-info > .row,
+kwp-task-detail-info .info-form,
+kwp-task-detail-info .info-form kwp-form-control textarea {
+    margin-bottom: 10px;
+}
+
+header #back-trigger {
+    /*border-right: 1px solid #27292d;*/
+    border-left: 1px solid #c0c9dd;
+    color: #888888;
+}
+
+#back-trigger {
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+}
+
+#back-trigger {
+    float: left;
+}
+
+#leftmenu-trigger:hover {
+    background-position: 0 40px;
+}
+
+.navbar-header .back {
+    width: 40px;
+    height: 40px;
+    float: left;
+    text-align: center;
+    color: #888888;
+    border-left: 1px solid #c0c9dd;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.collapse-leftbar #sidebar > li:hover span {
+    display: none !important;
+}
+
+.collapse-leftbar #sidebar > li:hover {
+    width: 40px !important;
+}

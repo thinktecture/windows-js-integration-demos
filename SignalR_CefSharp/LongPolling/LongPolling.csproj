@@ -53,11 +53,17 @@
     <Reference Include="Microsoft.Owin.Cors">
       <HintPath>..\packages\Microsoft.Owin.Cors.3.0.0\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Owin.FileSystems">
+      <HintPath>..\packages\Microsoft.Owin.FileSystems.3.0.0\lib\net45\Microsoft.Owin.FileSystems.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin.Host.HttpListener">
       <HintPath>..\packages\Microsoft.Owin.Host.HttpListener.2.0.2\lib\net45\Microsoft.Owin.Host.HttpListener.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Hosting">
       <HintPath>..\packages\Microsoft.Owin.Hosting.2.0.2\lib\net45\Microsoft.Owin.Hosting.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.StaticFiles">
+      <HintPath>..\packages\Microsoft.Owin.StaticFiles.3.0.0\lib\net45\Microsoft.Owin.StaticFiles.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -103,6 +109,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SelfHostStartup.cs" />
     <Compile Include="Startup.cs" />
     <Page Include="EmployeeDetails.xaml">
       <SubType>Designer</SubType>
@@ -171,6 +178,18 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(SolutionDir)Basta.WebApp\app\*.*" "$(TargetDir)\client\app\" /E /I /F /Y
+xcopy "$(SolutionDir)Basta.WebApp\libs\*.*" "$(TargetDir)\client\libs\" /E /I /F /Y
+xcopy "$(SolutionDir)Basta.WebApp\appServices\*.*" "$(TargetDir)\client\appServices\" /E /I /F /Y
+xcopy "$(SolutionDir)Basta.WebApp\appStartup\*.*" "$(TargetDir)\client\appStartup\" /E /I /F /Y
+xcopy "$(SolutionDir)Basta.WebApp\assets\*.*" "$(TargetDir)\client\assets\" /E /I /F /Y
+
+curl http://localhost/Basta.WebApp/ &gt; "$(TargetDir)\client\index.html"
+ssr -f  "$(TargetDir)\client\index.html" -a -s "/Basta.WebApp/" -r ""
+del "$(TargetDir)\client\*.bak"
+</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -23,7 +23,7 @@ namespace LongPolling
             var config = new HttpConfiguration();
             ConfigureDependancyResolver(config);
 
-            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}");
+            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{employeeId}");
 
             appBuilder.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             appBuilder.UseWebApi(config);

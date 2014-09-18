@@ -1,10 +1,8 @@
 (function () {
     "use strict";
 
-    function EmployeesController($scope, $rootScope, $location, $routeParams, bastaGatewayService) {
+    function EmployeesController($scope, $rootScope, $location, $routeParams) {
         $rootScope.pageHeading = 'Employees - Liste'
-
-        bastaGatewayService.starteLongPolling();
 
     }
 

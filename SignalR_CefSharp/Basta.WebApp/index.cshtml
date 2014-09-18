@@ -1,0 +1,43 @@
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
+<html ng-app="basta">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link href="logo.png" sizes="120x120" rel="apple-touch-icon">
+    <title>Thinktecture BASTA App</title>
+
+    @Styles.Render("~/app/css")
+</head>
+<body>
+    <div id="wrapper">
+        <div id="page-container">
+            <kwp-left-bar id="page-leftbar"></kwp-left-bar>
+            <kwp-right-bar id="page-rightbar"></kwp-right-bar>
+
+            <div id="page-content">
+                <div id="wrap">
+                    <div id="page-heading">
+                        <h1>{{pageHeading}}</h1>
+                    </div>
+                    <div class="container">
+                        <ng-view></ng-view>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <div class="clearfix">
+                    <ul class="list-unstyled list-inline pull-left">
+                        <li>Thinktecture &copy; 2014</li>
+                    </ul>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    @Scripts.Render("~/app/js")
+</body>
+</html>

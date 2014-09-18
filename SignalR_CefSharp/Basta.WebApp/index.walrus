@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html ng-app="basta" ng-click="hideSearch()">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title>BASTA 2014 - LongPolling</title>
+    {{bundler.renderStyles("~/styles")}}
+</head>
+<body ng-controller="mainController">
+    <div id="wrapper">
+        <div id="page-container">
+            <kwp-left-bar id="page-leftbar"></kwp-left-bar>
+            <kwp-right-bar id="page-rightbar"></kwp-right-bar>
+
+            <div id="page-content">
+                <div id="wrap">
+                    <div id="page-heading">
+                        <h1>{{pageHeading}}</h1>
+                    </div>
+                    <div class="container">
+                        <ng-view></ng-view>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <div class="clearfix">
+                    <ul class="list-unstyled list-inline pull-left">
+                        <li>Thinktecture &copy; 2014</li>
+                    </ul>
+                </div>
+            </footer>
+        </div>
+    </div>
+{{bundler.renderScripts("~/libs")}}
+{{bundler.renderScripts("~/app")}}
+
+</body>
+</html>

@@ -6,7 +6,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         mc:Ignorable="d"
-        Title="LongPolling Sample" Height="400" Width="525" Loaded="Window_Loaded">
+        Title="LongPolling Sample" Height="500" Width="525" Loaded="Window_Loaded">
     <Window.CommandBindings>
         <CommandBinding
               Command="{x:Static local:MainWindow.DetailsCommand}"
@@ -20,38 +20,19 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="23*"/>
-            <RowDefinition Height="23*"/>
             <RowDefinition Height="213*"/>
         </Grid.RowDefinitions>
-        <Menu Name="mainMenu" Height="28" Margin="0,0,0,0" VerticalAlignment="Top" Grid.Row="0">
-            <MenuItem Header="_File">
-                <MenuItem Header="_Open" IsCheckable="true"/>
-                <MenuItem Header="_Close" IsCheckable="true"/>
-                <MenuItem Header="_Save" IsCheckable="true"/>
-                <Separator/>
-                <MenuItem Header="Search">
-                    <MenuItem Header="Simple" IsCheckable="true"/>
-                    <MenuItem Header="Advanced" IsCheckable="true"/>
-                </MenuItem>
-            </MenuItem>
-            <MenuItem Header="_Action">
-                <MenuItem Header="_WPF Dialog" Click="wpf_Click"/>
-                <Separator/>
-                <MenuItem Header="Browser Dialog" Click="browser_Click"/>
-            </MenuItem>
-            <MenuItem Header="_Help">
-            </MenuItem>
-        </Menu>
-        <Label Name="label1" Content="" HorizontalAlignment="Left" Margin="10,202,0,0" Grid.Row="2" VerticalAlignment="Top" RenderTransformOrigin="-1.737,0.462" Width="497"/>
-        <DockPanel Grid.Row="1">
+        <DockPanel Grid.Row="0" Margin="0,0,0,19">
             <ToolBarTray DockPanel.Dock="Top">
                 <ToolBar>
-                    <Button Command="{x:Static local:MainWindow.DetailsCommand}" Content="Starte WebAPI" />
+                    <Button Name="btn_webapi" Command="{x:Static local:MainWindow.DetailsCommand}" Content="Starte WebAPI" />
+                    <Button Name="btn_selfhost" Command="{x:Static local:MainWindow.HostingCommand}" Content="Starte SelfHosting" />
+                    <Button Name="btn_webdialog" Command="{x:Static local:MainWindow.OpenWebCommand}" Content="Starte WebBrowser" />
                 </ToolBar>
             </ToolBarTray>
         </DockPanel>
-        <DockPanel Grid.Row="2" DataContext="{StaticResource employeeViewSource}">
-            <DataGrid x:Name="employeeDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="0,0,0,0" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False" Grid.ColumnSpan="2" SelectionChanged="employeeDataGrid_SelectionChanged">
+        <DockPanel Grid.Row="1" DataContext="{StaticResource employeeViewSource}">
+            <DataGrid x:Name="employeeDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="0,26,0,0" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False" Grid.ColumnSpan="2" SelectionChanged="employeeDataGrid_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="employeeIDColumn" Width="SizeToHeader" Header="Employee ID" Binding="{Binding EmployeeID}"/>
                     <DataGridTextColumn x:Name="firstNameColumn" Width="Auto" Header="First Name" Binding="{Binding FirstName}"/>
@@ -67,7 +48,8 @@
                     <DataGridTextColumn x:Name="countryColumn" Width="Auto" Header="Country" Binding="{Binding Country}"/>
                 </DataGrid.Columns>
             </DataGrid>
-
         </DockPanel>
+        <Label Name="label1" Content="" HorizontalAlignment="Left" Margin="10,356,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-1.737,0.462" Width="497"/>
+        <Label Name="label2" Content="" HorizontalAlignment="Left" Margin="10,387,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-1.737,0.462" Width="497"/>
     </Grid>
 </Window>
