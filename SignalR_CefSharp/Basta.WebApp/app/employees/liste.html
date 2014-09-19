@@ -35,17 +35,7 @@
             <input id="land" type="text" class="form-control" ng-model="employee.Land"/>
         </div>
     </div>
+    <button type="submit" ng-click="submitEmployee()">
+        OK
+    </button>
 </form>
-<script type="text/javascript">
-    $(function () {
-        // Declare a proxy to reference the hub.
-        var chat = $.connection.SignalRHub;
-        // Create a function that the hub can call to broadcast messages.
-        chat.client.broadcastMessage = function (name, message) {
-            var s = "";
-        };
-        // Start the connection.
-        $.connection.hub.start().done(function () {
-        });
-    });
-</script>

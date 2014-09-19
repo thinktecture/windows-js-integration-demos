@@ -6,33 +6,28 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         mc:Ignorable="d"
-        Title="LongPolling Sample" Height="500" Width="525" Loaded="Window_Loaded">
-    <Window.CommandBindings>
-        <CommandBinding
-              Command="{x:Static local:MainWindow.DetailsCommand}"
-              CanExecute="DetailsCommand_CanExecute"
-              Executed="DetailsCommand_Executed" />
-    </Window.CommandBindings>
+        Title="SignalR Sample" Height="500" Width="666" Loaded="Window_Loaded">
     <Window.Resources>
         <CollectionViewSource x:Key="employeeViewSource" d:DesignSource="{d:DesignInstance {x:Type DataLayer:Employee}, CreateList=True}"/>
     </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="23*"/>
-            <RowDefinition Height="213*"/>
+            <RowDefinition Height="23"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0" Margin="0,0,0,19">
-            <ToolBarTray DockPanel.Dock="Top">
-                <ToolBar>
-                    <Button Name="btn_webapi" Command="{x:Static local:MainWindow.DetailsCommand}" Content="Starte WebAPI" />
-                    <Button Name="btn_selfhost" Command="{x:Static local:MainWindow.HostingCommand}" Content="Starte SelfHosting" />
-                    <Button Name="btn_webdialog" Command="{x:Static local:MainWindow.OpenWebCommand}" Content="Starte WebBrowser" />
-                </ToolBar>
-            </ToolBarTray>
-        </DockPanel>
+        <Menu IsMainMenu="True">
+            <MenuItem Header="_Action">
+                <MenuItem Header="Start Browser" Click="MenuItem_Click"></MenuItem>
+            </MenuItem>
+        </Menu>
         <DockPanel Grid.Row="1" DataContext="{StaticResource employeeViewSource}">
-            <DataGrid x:Name="employeeDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="0,26,0,0" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False" Grid.ColumnSpan="2" SelectionChanged="employeeDataGrid_SelectionChanged">
+            <DataGrid x:Name="employeeDataGrid"
+                      RowDetailsVisibilityMode="VisibleWhenSelected"
+                      Margin="0,26,0,0"
+                      ItemsSource="{Binding}"
+                      EnableRowVirtualization="True"
+                      AutoGenerateColumns="False" Grid.ColumnSpan="2">
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="employeeIDColumn" Width="SizeToHeader" Header="Employee ID" Binding="{Binding EmployeeID}"/>
                     <DataGridTextColumn x:Name="firstNameColumn" Width="Auto" Header="First Name" Binding="{Binding FirstName}"/>
@@ -46,10 +41,25 @@
                     </DataGridTemplateColumn>
                     <DataGridTextColumn x:Name="cityColumn" Width="Auto" Header="City" Binding="{Binding City}"/>
                     <DataGridTextColumn x:Name="countryColumn" Width="Auto" Header="Country" Binding="{Binding Country}"/>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Width="55" Margin="10,0,10,0" Click="ShowHideDetails" CommandParameter="{Binding EmployeeID}">Details</Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Width="75" Margin="10,0,10,0" Click="OpenWebDialog" CommandParameter="{Binding EmployeeID}">Web Dialog</Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>
-        <Label Name="label1" Content="" HorizontalAlignment="Left" Margin="10,356,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-1.737,0.462" Width="497"/>
-        <Label Name="label2" Content="" HorizontalAlignment="Left" Margin="10,387,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-1.737,0.462" Width="497"/>
+        <Label x:Name="label1" Content="" HorizontalAlignment="Left" Margin="10,371,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.737,0.462" Width="497"/>
+        <Label x:Name="label2" Content="" HorizontalAlignment="Left" Margin="10,402,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.737,0.462" Width="497"/>
+        <Label x:Name="label3" Content="" HorizontalAlignment="Left" Margin="10,433,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.737,0.462" Width="497"/>
     </Grid>
 </Window>

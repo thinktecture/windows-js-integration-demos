@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Net.Http;
 using System.Runtime.Remoting.Channels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using DataLayer;
+using DataLayer.Models;
+using GalaSoft.MvvmLight.Messaging;
+using Microsoft.AspNet.SignalR;
 using Microsoft.Owin.Hosting;
 using System.Data.Entity;
 
@@ -16,82 +20,46 @@ namespace LongPolling
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static readonly RoutedCommand DetailsCommand = new RoutedCommand();
-        public static readonly RoutedCommand HostingCommand = new RoutedCommand();
-        public static readonly RoutedCommand OpenWebCommand = new RoutedCommand();
+        private string selfhostBaseAddress = "http://localhost:9000";
 
-        private string webApiBaseAddress = "http://localhost:9000";
         private string employeesBaseAddress = "http://localhost:8090";
-        private string selfhostBaseAddress = "http://localhost:7777";
 
         private NorthwindEntities _context = new NorthwindEntities();
+
+        private IDisposable server = null;
+
+        private int browserId;
+
+        private SignalRHub theHub;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            CommandBinding customCommandBinding = new CommandBinding(
-                DetailsCommand, DetailsCommand_Executed, DetailsCommand_CanExecute);
+            InitializeSelfhosting();
 
-            CommandBinding customCommandBinding2 = new CommandBinding(
-                HostingCommand, HostingCommand_Executed, HostingCommand_CanExecute);
-
-            CommandBinding customCommandBinding3 = new CommandBinding(
-                OpenWebCommand, OpenWebCommand_Executed, OpenWebCommand_CanExecute);
-
-            // attach CommandBinding to root window
-            this.CommandBindings.Add(customCommandBinding);
-            this.CommandBindings.Add(customCommandBinding2);
-            this.CommandBindings.Add(customCommandBinding3);
+            theHub = new SignalRHub();
         }
 
-        private void DetailsCommand_CanExecute(object sender,
-            CanExecuteRoutedEventArgs e)
+        public void ShowHideDetails(object sender, RoutedEventArgs e)
         {
-            Control target = e.Source as Control;
+            var employeeId = ((Button)sender).CommandParameter;
+            if (employeeId != null)
+            {
+                EmployeeDetails details = new EmployeeDetails();
+                details.EmployeeId = (int)employeeId;
 
-            if (target != null)
-            {
-                e.CanExecute = true;
-            }
-            else
-            {
-                e.CanExecute = false;
+                details.ShowDialog();
             }
         }
 
-        private void HostingCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        public void OpenWebDialog(object sender, RoutedEventArgs e)
         {
-            e.CanExecute = true;
-        }
+            var employeeId = ((Button)sender).CommandParameter;
 
-        private void OpenWebCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        void DetailsCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            WebApp.Start<Startup>(url: webApiBaseAddress);
-
-            label1.Content = "Web API host started";
-            btn_webapi.IsEnabled = false;
-        }
-
-        private IDisposable server = null;
-
-        void HostingCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            server = WebApp.Start<SelfHostStartup>(selfhostBaseAddress);
-
-            label2.Content = "Selfhosting gestartet";
-            btn_selfhost.IsEnabled = false;
-        }
-
-        void OpenWebCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
-              selfhostBaseAddress);
+            var context = GlobalHost.ConnectionManager.GetHubContext<SignalRHub>();
+            var clients = context.Clients;
+            clients.All.broadcastMessage(employeeId);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -101,23 +69,45 @@ namespace LongPolling
             _context.Employees.Load();
 
             employeeViewSource.Source = _context.Employees.Local;
-
         }
 
-        private void employeeDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        /// <summary>
+        /// Init the self hosted WebAPI
+        /// </summary>
+        private void InitializeSelfhosting()
         {
-            var emplyoeeId = ((Employee)e.AddedItems[0]).EmployeeID;
+            WebApp.Start<Startup>(url: selfhostBaseAddress);
 
-            EmployeeDetails details = new EmployeeDetails();
-            details.EmployeeId = emplyoeeId;
+            label1.Content = "Selfhosting gestartet:";
+            label2.Content = "WebApi http://localhost:9000/api/employees/{id}";
+            label3.Content = "Webanwendung http://localhost:9000";
+        }
 
-            details.ShowDialog();
-
-            if (server != null)
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (UserHandler.ConnectedIds.Count <= 0)
             {
-                SignalRHub hub = new SignalRHub();
-                hub.Send(emplyoeeId);
+                Process proc = Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+                  selfhostBaseAddress);
+
+                Messenger.Default.Register<EmployeeDto>(this, HandleEmployeeDto);
             }
+        }
+
+        private void HandleEmployeeDto(EmployeeDto employee)
+        {
+            var e = _context.Employees.First(x => x.EmployeeID == employee.EmployeeId);
+            e.FirstName = employee.Vorname;
+            e.LastName = employee.Nachname;
+            e.Country = employee.Land;
+            e.Address = employee.Adresse;
+            e.City = employee.Stadt;
+            e.HomePhone = employee.Telefon;
+            e.PostalCode = employee.PLZ;
+
+            _context.SaveChanges();
+            this.Dispatcher.Invoke((Action)(() => employeeDataGrid.Items.Refresh()));
         }
     }
 }
+

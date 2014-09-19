@@ -1,9 +1,7 @@
 (function () {
     "use strict";
 
-    app.module.config(function ($routeProvider, $compileProvider) {
-
-        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|ghttps?|ms-appx|x-wmapp0|callto):/);
+    app.module.config(function ($routeProvider) {
 
         $routeProvider
             .when('/', {

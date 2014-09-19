@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
+using Microsoft.Owin;
+using Microsoft.Owin.Cors;
+using Microsoft.Owin.FileSystems;
+using Microsoft.Owin.StaticFiles;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Owin;
@@ -20,12 +24,27 @@ namespace LongPolling
         // parameter in the WebApp.Start method.
         public void Configuration(IAppBuilder appBuilder)
         {
+            var options = new FileServerOptions()
+            {
+                RequestPath = new PathString(""),
+                FileSystem = new PhysicalFileSystem("client"),
+                EnableDefaultFiles = true,
+                EnableDirectoryBrowsing = true
+            };
+            options.DefaultFilesOptions.DefaultFileNames.Add("index.html");
+            options.StaticFileOptions.ServeUnknownFileTypes = true;
+
+            appBuilder.MapSignalR();
+            appBuilder.UseFileServer(options);
+
+
+
             var config = new HttpConfiguration();
             ConfigureDependancyResolver(config);
 
             config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{employeeId}");
 
-            appBuilder.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+            appBuilder.UseCors(CorsOptions.AllowAll);
             appBuilder.UseWebApi(config);
         }
 
