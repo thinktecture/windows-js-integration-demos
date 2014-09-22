@@ -16,7 +16,7 @@
             <RowDefinition Height="23"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Menu IsMainMenu="True">
+        <Menu Grid.Row="0" IsMainMenu="True">
             <MenuItem Header="_Action">
                 <MenuItem Header="Open Cef Dialog" Click="OpenCefDialog"></MenuItem>
             </MenuItem>

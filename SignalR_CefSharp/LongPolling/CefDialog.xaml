@@ -6,7 +6,16 @@
         mc:Ignorable="d" x:Class="LongPolling.CefDialog"
         Title="Cef Dialog" Height="666" Width="555"
         KeyDown="Window_KeyDown">
-    <Grid Name="CefGrid">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" IsMainMenu="True">
+            <MenuItem Header="JS aufrufen" Click="GetSampleDataFromJavaScript" />
+        </Menu>
+        <Grid Grid.Row="1" Name="CefGrid" >
 
+        </Grid>
     </Grid>
 </Window>

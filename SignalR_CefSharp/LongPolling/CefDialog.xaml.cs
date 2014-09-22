@@ -64,12 +64,19 @@ namespace LongPolling
 
             base.OnClosed(e);
         }
+
+        private void GetSampleDataFromJavaScript(object sender, RoutedEventArgs e)
+        {
+            webView.ExecuteScript("ttTools.getSampleData()");
+        }
+
     }
 
     public class CefBridge
     {
         public void SampleDataResult(object result)
         {
+            MessageBox.Show("Full Name: " + result);
         }
     }
 

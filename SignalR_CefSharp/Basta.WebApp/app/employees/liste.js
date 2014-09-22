@@ -38,4 +38,12 @@
     }
 
     app.module.controller('employeesController', EmployeesController);
+
+    app.module.factory('employeesApi', function($rootScope){
+        var fac = {};
+        fac.getFullName = function() {
+            return $rootScope.employee.Vorname + " " + $rootScope.employee.Nachname;
+        };
+        return fac;
+    });
 })();
