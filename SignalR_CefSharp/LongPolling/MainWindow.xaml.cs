@@ -33,6 +33,8 @@ namespace LongPolling
             InitializeComponent();
             InitializeSelfhosting();
             theHub = new SignalRHub();
+
+            Messenger.Default.Register<EmployeeDto>(this, HandleEmployeeDto);
         }
 
 
@@ -57,8 +59,6 @@ namespace LongPolling
             {
                 Process proc = Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
                   selfhostBaseAddress + "/#/employee/" + employeeId);
-
-                Messenger.Default.Register<EmployeeDto>(this, HandleEmployeeDto);
             }
 
             var context = GlobalHost.ConnectionManager.GetHubContext<SignalRHub>();
@@ -90,7 +90,10 @@ namespace LongPolling
 
         private void OpenCefDialog(object sender, RoutedEventArgs e)
         {
-            CefDialog c = new CefDialog();
+            var selectedItem = this.employeeDataGrid.SelectedItem;
+            var employeeId = ((Employee)selectedItem).EmployeeID;
+
+            CefDialog c = new CefDialog(employeeId);
             c.ShowDialog();
         }
 

@@ -4,14 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         x:Class="LongPolling.EmployeeDetails"
-        Title="Employee Details" Height="420" Width="400" Loaded="Window_Loaded">
+        Title="Employee Details" Height="425" Width="400" Loaded="Window_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="9*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="btnOk" Content="OK" HorizontalAlignment="Left" Margin="106,359,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1"/>
-        <Button x:Name="btnAbbrechen" Content="Abbrechen" HorizontalAlignment="Left" Margin="186,359,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1"/>
+        <Button x:Name="btnOk" Content="OK" HorizontalAlignment="Left" Margin="106,359,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Click="btnOk_Click"/>
+        <Button x:Name="btnAbbrechen" Content="Abbrechen" HorizontalAlignment="Left" Margin="186,359,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Click="btnAbbrechen_Click"/>
 
         <Grid x:Name="grid1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Width="382">
             <Grid.ColumnDefinitions>

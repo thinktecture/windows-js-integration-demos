@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DataLayer;
 using DataLayer.Models;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace LongPolling
 {
@@ -23,8 +24,7 @@ namespace LongPolling
     public partial class EmployeeDetails : Window
     {
         public int EmployeeId { get; set; }
-
-        private NorthwindEntities _context = new NorthwindEntities();
+        private EmployeeDto _employee;
 
         public EmployeeDetails()
         {
@@ -33,23 +33,37 @@ namespace LongPolling
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Employee empl = _context.Employees.First(x => x.EmployeeID == this.EmployeeId);
-
-            EmployeeDto employee = new EmployeeDto()
+            using (NorthwindEntities _context = new NorthwindEntities())
             {
-                EmployeeId = empl.EmployeeID,
-                Vorname = empl.FirstName,
-                Nachname = empl.LastName,
-                Adresse = empl.Address,
-                Stadt = empl.City,
-                PLZ = empl.PostalCode,
-                Land = empl.Country,
-                Geburtsdatum = empl.BirthDate,
-                Einstellungsdatum = empl.HireDate,
-                Telefon = empl.HomePhone
-            };
+                Employee empl = _context.Employees.First(x => x.EmployeeID == this.EmployeeId);
 
-            this.DataContext = employee;
+                _employee = new EmployeeDto()
+                {
+                    EmployeeId = empl.EmployeeID,
+                    Vorname = empl.FirstName,
+                    Nachname = empl.LastName,
+                    Adresse = empl.Address,
+                    Stadt = empl.City,
+                    PLZ = empl.PostalCode,
+                    Land = empl.Country,
+                    Geburtsdatum = empl.BirthDate,
+                    Einstellungsdatum = empl.HireDate,
+                    Telefon = empl.HomePhone
+                };
+
+                this.DataContext = _employee;
+            }
+        }
+
+        private void btnAbbrechen_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnOk_Click(object sender, RoutedEventArgs e)
+        {
+            Messenger.Default.Send(_employee);
+            this.Close();
         }
     }
 }

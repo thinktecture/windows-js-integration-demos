@@ -15,23 +15,23 @@ namespace LongPolling
     {
         private readonly WebView webView;
         private bool loaded;
+        private Settings _settings;
 
-        public CefDialog()
+        public CefDialog(int employeeId)
         {
             InitializeComponent();
 
-            var settings = new CefSharp.Settings();
-            settings.PackLoadingDisabled = true;
-
-            if (CEF.Initialize(settings))
+            _settings = new CefSharp.Settings();
+//            settings.PackLoadingDisabled = true;
+            
+            if (CEF.Initialize(_settings))
             {
                 var browserSettings = new BrowserSettings
                 {
                     UniversalAccessFromFileUrlsAllowed = true
                 };
 
-                // ACHTUNG: als Beispiel hier fest verdrahtete URL inkl. Parameter
-                var urlToNavigate = "http://localhost:9000/#/employee/3";
+                var urlToNavigate = "http://localhost:9000/#/employee/" + employeeId;
 
                 webView = new WebView(urlToNavigate, browserSettings);
                 webView.LoadCompleted += webView_LoadCompleted;
@@ -61,7 +61,10 @@ namespace LongPolling
         protected override void OnClosed(EventArgs e)
         {
             CEF.Shutdown();
-
+            if (_settings != null)
+            {
+                _settings.Dispose();
+            }
             base.OnClosed(e);
         }
 
