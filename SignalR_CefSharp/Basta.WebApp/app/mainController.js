@@ -1,7 +1,7 @@
 (function () {
     "use strict";
 
-    function MainController($scope, $rootScope, $location, $route, $window) {
+    function MainController($scope, $rootScope, $location, $window) {
         // $route needs to be injected, because ng-view is nested in a directive, to start up the routing!
 
         $rootScope.collapseLeftBar = (window.innerWidth === 768);

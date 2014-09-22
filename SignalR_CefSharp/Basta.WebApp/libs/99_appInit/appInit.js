@@ -6,6 +6,5 @@
     });
 
     window.app = window.app || { resolver: {} };
-    app.module = angular.module('basta', ['ngRoute', 'ttBase']);
-
+    app.module = angular.module('basta', ['ui.router', 'ttBase']);
 })();

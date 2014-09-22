@@ -40,6 +40,12 @@
     <Reference Include="Autofac.Integration.WebApi">
       <HintPath>..\packages\Autofac.WebApi2.3.4.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
     </Reference>
+    <Reference Include="CefSharp">
+      <HintPath>..\packages\CefSharp.Wpf.1.25.7\lib\net40\CefSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="CefSharp.Wpf">
+      <HintPath>..\packages\CefSharp.Wpf.1.25.7\lib\net40\CefSharp.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -138,7 +144,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DialogListe.xaml">
+    <Page Include="CefDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -153,8 +159,8 @@
     <Compile Include="EmployeeDetails.xaml.cs">
       <DependentUpon>EmployeeDetails.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DialogListe.xaml.cs">
-      <DependentUpon>DialogListe.xaml</DependentUpon>
+    <Compile Include="CefDialog.xaml.cs">
+      <DependentUpon>CefDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -212,6 +218,10 @@ curl http://localhost/Basta.WebApp/ &gt; "$(TargetDir)\client\index.html"
 ssr -f  "$(TargetDir)\client\index.html" -a -s "/Basta.WebApp/" -r ""
 del "$(TargetDir)\client\*.bak"
 </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>xcopy "$(SolutionDir)Libs\*.*" "$(TargetDir)" /E /I /F /Y
+</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

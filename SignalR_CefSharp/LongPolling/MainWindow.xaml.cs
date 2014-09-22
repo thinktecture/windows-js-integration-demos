@@ -21,25 +21,20 @@ namespace LongPolling
     public partial class MainWindow : Window
     {
         private string selfhostBaseAddress = "http://localhost:9000";
-
         private string employeesBaseAddress = "http://localhost:8090";
 
         private NorthwindEntities _context = new NorthwindEntities();
-
         private IDisposable server = null;
-
         private int browserId;
-
         private SignalRHub theHub;
 
         public MainWindow()
         {
             InitializeComponent();
-
             InitializeSelfhosting();
-
             theHub = new SignalRHub();
         }
+
 
         public void ShowHideDetails(object sender, RoutedEventArgs e)
         {
@@ -53,14 +48,24 @@ namespace LongPolling
             }
         }
 
+
         public void OpenWebDialog(object sender, RoutedEventArgs e)
         {
             var employeeId = ((Button)sender).CommandParameter;
+
+            if (UserHandler.ConnectedIds.Count <= 0)
+            {
+                Process proc = Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+                  selfhostBaseAddress + "/#/employee/" + employeeId);
+
+                Messenger.Default.Register<EmployeeDto>(this, HandleEmployeeDto);
+            }
 
             var context = GlobalHost.ConnectionManager.GetHubContext<SignalRHub>();
             var clients = context.Clients;
             clients.All.broadcastMessage(employeeId);
         }
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -79,20 +84,16 @@ namespace LongPolling
             WebApp.Start<Startup>(url: selfhostBaseAddress);
 
             label1.Content = "Selfhosting gestartet:";
-            label2.Content = "WebApi http://localhost:9000/api/employees/{id}";
-            label3.Content = "Webanwendung http://localhost:9000";
+            label2.Content = "WebApi " + selfhostBaseAddress + "/api/employees/{id}";
+            label3.Content = "Webanwendung " + selfhostBaseAddress;
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void OpenCefDialog(object sender, RoutedEventArgs e)
         {
-            if (UserHandler.ConnectedIds.Count <= 0)
-            {
-                Process proc = Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
-                  selfhostBaseAddress);
-
-                Messenger.Default.Register<EmployeeDto>(this, HandleEmployeeDto);
-            }
+            CefDialog c = new CefDialog();
+            c.ShowDialog();
         }
+
 
         private void HandleEmployeeDto(EmployeeDto employee)
         {

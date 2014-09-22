@@ -1,16 +1,15 @@
 (function () {
     "use strict";
 
-    function EmployeesController($scope, $rootScope, $location, $routeParams, employeeService) {
+    function EmployeesController($q, $scope, $rootScope, $location, $stateParams, employeeService) {
         $rootScope.pageHeading = 'Employee - Details';
 
         function getEmployeeById(employeeId) {
             employeeService.getEmployeeById(employeeId)
                 .then(function(data){
-                    $scope.employee = data;
-                    $scope.apply();
+                    $rootScope.employee = data;
                 });
-        };
+        }
 
         $scope.submitEmployee = function(){
             if($scope.employee) {
@@ -27,9 +26,16 @@
 
         $.connection.hub.logging = true;
         $.connection.hub.start().done(function () {
-        });
-    };
+        })
+        .then(function(){
+            if($stateParams.employeeId) {
+                employeeService.getEmployeeById($stateParams.employeeId)
+                    .then(function(data){
+                        $rootScope.employee = data;
+                    });
+            }
+        })
+    }
 
     app.module.controller('employeesController', EmployeesController);
-
 })();

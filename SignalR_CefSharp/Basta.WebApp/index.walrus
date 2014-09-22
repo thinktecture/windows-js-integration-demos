@@ -18,7 +18,7 @@
                         <h1>{{pageHeading}}</h1>
                     </div>
                     <div class="container">
-                        <ng-view></ng-view>
+                        <ui-view></ui-view>
                     </div>
                 </div>
             </div>

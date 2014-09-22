@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
         <Menu IsMainMenu="True">
             <MenuItem Header="_Action">
-                <MenuItem Header="Start Browser" Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Open Cef Dialog" Click="OpenCefDialog"></MenuItem>
             </MenuItem>
         </Menu>
         <DockPanel Grid.Row="1" DataContext="{StaticResource employeeViewSource}">
