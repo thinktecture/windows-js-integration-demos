@@ -56,7 +56,10 @@ namespace LongPolling
             }
             else
             {
-                Content = new Label() { Content = "CEF is not initialized. (This is ok in design-mode! If this happens at runtime, you need to call MapWrapper.InitializeChromiumEmbedded() before instantiating the MapWrapper-control.)" };
+                Content = new Label() {
+                    Content = @"CEF is not initialized.
+                        (This is ok in design-mode! If this happens at runtime, you need to call MapWrapper.InitializeChromiumEmbedded() before instantiating the MapWrapper-control.)"
+                };
             }
         }
 
