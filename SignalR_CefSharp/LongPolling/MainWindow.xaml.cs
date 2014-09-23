@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Net.Http;
-using System.Runtime.Remoting.Channels;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using DataLayer;
 using DataLayer.Models;
 using GalaSoft.MvvmLight.Messaging;
@@ -21,18 +18,13 @@ namespace LongPolling
     public partial class MainWindow : Window
     {
         private string selfhostBaseAddress = "http://localhost:9000";
-        private string employeesBaseAddress = "http://localhost:8090";
 
         private NorthwindEntities _context = new NorthwindEntities();
-        private IDisposable server = null;
-        private int browserId;
-        private SignalRHub theHub;
 
         public MainWindow()
         {
             InitializeComponent();
             InitializeSelfhosting();
-            theHub = new SignalRHub();
 
             Messenger.Default.Register<EmployeeDto>(this, HandleEmployeeDto);
         }
@@ -43,7 +35,7 @@ namespace LongPolling
             var employeeId = ((Button)sender).CommandParameter;
             if (employeeId != null)
             {
-                EmployeeDetails details = new EmployeeDetails();
+                var details = new EmployeeDetails();
                 details.EmployeeId = (int)employeeId;
 
                 details.ShowDialog();

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Web.Http;
 using DataLayer;
 using DataLayer.Models;
@@ -15,23 +11,26 @@ namespace bastaWebApi
         {
             EmployeeDto employee = new EmployeeDto();
 
-            using (var _context = new NorthwindEntities())
+            if (employeeId > 0)
             {
-                Employee empl = _context.Employees.First(x => x.EmployeeID == employeeId);
-
-                employee = new EmployeeDto()
+                using (var _context = new NorthwindEntities())
                 {
-                    EmployeeId = empl.EmployeeID,
-                    Vorname = empl.FirstName,
-                    Nachname = empl.LastName,
-                    Adresse = empl.Address,
-                    Stadt = empl.City,
-                    PLZ = empl.PostalCode,
-                    Land = empl.Country,
-                    Geburtsdatum = empl.BirthDate,
-                    Einstellungsdatum = empl.HireDate,
-                    Telefon = empl.HomePhone
-                };
+                    Employee empl = _context.Employees.First(x => x.EmployeeID == employeeId);
+
+                    employee = new EmployeeDto()
+                    {
+                        EmployeeId = empl.EmployeeID,
+                        Vorname = empl.FirstName,
+                        Nachname = empl.LastName,
+                        Adresse = empl.Address,
+                        Stadt = empl.City,
+                        PLZ = empl.PostalCode,
+                        Land = empl.Country,
+                        Geburtsdatum = empl.BirthDate,
+                        Einstellungsdatum = empl.HireDate,
+                        Telefon = empl.HomePhone
+                    };
+                }
             }
             return employee;
         }

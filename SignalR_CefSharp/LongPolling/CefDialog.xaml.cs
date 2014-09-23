@@ -1,10 +1,6 @@
-﻿using System;
-using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Shapes;
-using CefSharp;
-using CefSharp.Wpf;
+using LongPolling.ViewModel;
 
 namespace LongPolling
 {
@@ -13,66 +9,33 @@ namespace LongPolling
     /// </summary>
     public partial class CefDialog : Window
     {
-        private readonly WebView webView;
-        private bool loaded;
-        private Settings _settings;
+        private static bool _isCefInit;
 
         public CefDialog(int employeeId)
         {
-            InitializeComponent();
-
-            _settings = new CefSharp.Settings();
-//            settings.PackLoadingDisabled = true;
-            
-            if (CEF.Initialize(_settings))
+            if (!_isCefInit)
             {
-                var browserSettings = new BrowserSettings
-                {
-                    UniversalAccessFromFileUrlsAllowed = true
-                };
-
-                var urlToNavigate = "http://localhost:9000/#/employee/" + employeeId;
-
-                webView = new WebView(urlToNavigate, browserSettings);
-                webView.LoadCompleted += webView_LoadCompleted;
-                webView.RegisterJsObject("cefCallback", new CefBridge());
-
-                CefGrid.Children.Add(webView);
+                _isCefInit = true;
+                CefWrapper.InitializeChromiumEmbedded();
             }
-        }
 
-        private void webView_LoadCompleted(object sender, LoadCompletedEventArgs url)
-        {
-            loaded = true;
+            InitializeComponent();
+            cefWrapper.DataContext = employeeId;
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (loaded)
+            if (e.Key == Key.I &&
+                (Keyboard.Modifiers & (ModifierKeys.Control | ModifierKeys.Shift)) == (ModifierKeys.Control | ModifierKeys.Shift))
             {
-                if (e.Key == Key.I &&
-                    (Keyboard.Modifiers & (ModifierKeys.Control | ModifierKeys.Shift)) == (ModifierKeys.Control | ModifierKeys.Shift))
-                {
-                    webView.ShowDevTools();
-                }
+                cefWrapper.ShowDevTools();
             }
-        }
-
-        protected override void OnClosed(EventArgs e)
-        {
-            CEF.Shutdown();
-            if (_settings != null)
-            {
-                _settings.Dispose();
-            }
-            base.OnClosed(e);
         }
 
         private void GetSampleDataFromJavaScript(object sender, RoutedEventArgs e)
         {
-            webView.ExecuteScript("ttTools.getSampleData()");
+            cefWrapper.ExecuteScript("ttTools.getSampleData()");
         }
-
     }
 
     public class CefBridge
@@ -82,5 +45,4 @@ namespace LongPolling
             MessageBox.Show("Full Name: " + result);
         }
     }
-
 }
