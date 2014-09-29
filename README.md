@@ -6,3 +6,6 @@ In diesem Repo sind die Beispiele zum Vortrag "Aus alt mach neu: Windows-Anwendu
 - AngularJS_HelloWorld: ein einfaches HelloWorld-Beispiel zum Einstieg in AngularJS
 - Edge...: Zwei Beispiele die zeigen, wie man innerhalb eines Prozesses aus einer C#-Anwendung heraus javascript ausführen kann, und umgekehrt
 - SignalR_CefSharp: Eine umfangreiche WPF-Anwendung die zeigt, wie man Schritt-für-Schritt eine bestehende Anwendung in die JavaScript (AngularJS) Welt überführen kann.
+
+Link zum Vortrag:
+http://basta.net/2014/sessions/aus-alt-mach-neu-windows-anwendungen-die-angularjs-welt-bringen
