@@ -8,7 +8,7 @@ using GalaSoft.MvvmLight.Messaging;
 using Microsoft.AspNet.SignalR;
 using Newtonsoft.Json;
 
-namespace LongPolling
+namespace Basta.WpfClient
 {
     public class SignalRHub : Hub
     {

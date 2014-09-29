@@ -7,10 +7,11 @@ using DataLayer;
 using DataLayer.Models;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.Owin.Hosting;
 using System.Data.Entity;
 
-namespace LongPolling
+namespace Basta.WpfClient
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -20,6 +21,9 @@ namespace LongPolling
         private string selfhostBaseAddress = "http://localhost:9000";
 
         private NorthwindEntities _context = new NorthwindEntities();
+
+        private IHubContext hubContext;
+        private IHubConnectionContext<dynamic> clients;
 
         public MainWindow()
         {
@@ -51,10 +55,15 @@ namespace LongPolling
             {
                 Process proc = Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
                   selfhostBaseAddress + "/#/employee/" + employeeId);
+
+                //Process proc = Process.Start(@"C:\Program Files\Internet Explorer\iexplore.exe",
+                //  selfhostBaseAddress + "/#/employee/" + employeeId);
+
+                hubContext = GlobalHost.ConnectionManager.GetHubContext<SignalRHub>();
+
+                clients = hubContext.Clients;
             }
 
-            var context = GlobalHost.ConnectionManager.GetHubContext<SignalRHub>();
-            var clients = context.Clients;
             clients.All.broadcastMessage(employeeId);
         }
 

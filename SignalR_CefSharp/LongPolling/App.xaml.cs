@@ -8,7 +8,7 @@ using System.ServiceModel.Description;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace LongPolling
+namespace Basta.WpfClient
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -14,13 +14,13 @@
         $scope.submitEmployee = function(){
             if($scope.employee) {
                 var empl = JSON.stringify($scope.employee);
-                chat.server.updateEmployee(empl);
+                wpf.server.updateEmployee(empl);
             }
         };
 
-        var chat = $.connection.signalRHub;
+        var wpf = $.connection.signalRHub;
 
-        chat.client.broadcastMessage = function (employeeId) {
+        wpf.client.broadcastMessage = function (employeeId) {
             getEmployeeById(employeeId);
         };
 

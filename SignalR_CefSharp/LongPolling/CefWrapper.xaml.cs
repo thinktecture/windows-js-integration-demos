@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using CefSharp;
 using CefSharp.Wpf;
 
-namespace LongPolling
+namespace Basta.WpfClient
 {
     public partial class CefWrapper : UserControl
     {

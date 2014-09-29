@@ -16,7 +16,7 @@ using DataLayer;
 using DataLayer.Models;
 using GalaSoft.MvvmLight.Messaging;
 
-namespace LongPolling
+namespace Basta.WpfClient
 {
     /// <summary>
     /// Interaction logic for Dialog1.xaml

@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using LongPolling.ViewModel;
+using Basta.WpfClient.ViewModel;
 
-namespace LongPolling
+namespace Basta.WpfClient
 {
     /// <summary>
     /// Interaction logic for CefDialog.xaml
